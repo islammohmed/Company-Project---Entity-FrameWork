@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Company_Project.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace Company_Project.Context
+{
+    internal class AppDbContext: DbContext
+    {
+        public AppDbContext()
+        {
+        }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+        }
+
+        public DbSet<Item> Items { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<SupplyOrder> SupplyOrders { get; set; }
+        public DbSet<SupplyOrderItem> SupplyOrderItems { get; set; }
+        public DbSet<ReleaseOrder> ReleaseOrders { get; set; }
+        public DbSet<ReleaseOrderItem> ReleaseOrderItems { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Transfer> Transfers { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=.;Database=Company_EF;Trusted_Connection=True;TrustServerCertificate=True;");
+            }
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Transfer>()
+                .HasOne(t => t.SourceWarehouse)
+                .WithMany()
+                .HasForeignKey(t => t.SourceWarehouseId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
+            modelBuilder.Entity<Transfer>()
+                .HasOne(t => t.DestinationWarehouse)
+                .WithMany()
+                .HasForeignKey(t => t.DestinationWarehouseId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+    }
+}
