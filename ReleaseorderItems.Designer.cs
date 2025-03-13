@@ -1,6 +1,6 @@
 ﻿namespace Company_Project
 {
-    partial class ItemSelectionForm
+    partial class ReleaseorderItems
     {
         /// <summary>
         /// Required designer variable.
@@ -28,58 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dgvSupplyOrderItems = new DataGridView();
-            label10 = new Label();
+            ReleaseItemsDVg = new DataGridView();
             btnSelect = new Button();
-            ((System.ComponentModel.ISupportInitialize)dgvSupplyOrderItems).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ReleaseItemsDVg).BeginInit();
             SuspendLayout();
             // 
-            // dgvSupplyOrderItems
+            // ReleaseItemsDVg
             // 
-            dgvSupplyOrderItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSupplyOrderItems.Location = new Point(12, 32);
-            dgvSupplyOrderItems.Name = "dgvSupplyOrderItems";
-            dgvSupplyOrderItems.RowHeadersWidth = 51;
-            dgvSupplyOrderItems.Size = new Size(776, 299);
-            dgvSupplyOrderItems.TabIndex = 22;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Location = new Point(342, 9);
-            label10.Name = "label10";
-            label10.Size = new Size(94, 20);
-            label10.TabIndex = 21;
-            label10.Text = "Supply Items";
+            ReleaseItemsDVg.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ReleaseItemsDVg.Location = new Point(12, 35);
+            ReleaseItemsDVg.Name = "ReleaseItemsDVg";
+            ReleaseItemsDVg.RowHeadersWidth = 51;
+            ReleaseItemsDVg.Size = new Size(755, 309);
+            ReleaseItemsDVg.TabIndex = 0;
             // 
             // btnSelect
             // 
-            btnSelect.Location = new Point(12, 337);
+            btnSelect.Location = new Point(26, 364);
             btnSelect.Name = "btnSelect";
             btnSelect.Size = new Size(94, 29);
-            btnSelect.TabIndex = 26;
+            btnSelect.TabIndex = 1;
             btnSelect.Text = "Select";
             btnSelect.UseVisualStyleBackColor = true;
             btnSelect.Click += btnSelect_Click;
             // 
-            // ItemSelectionForm
+            // ReleaseorderItems
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(btnSelect);
-            Controls.Add(dgvSupplyOrderItems);
-            Controls.Add(label10);
-            Name = "ItemSelectionForm";
-            Text = "ItemSelectionForm";
-            ((System.ComponentModel.ISupportInitialize)dgvSupplyOrderItems).EndInit();
+            Controls.Add(ReleaseItemsDVg);
+            Name = "ReleaseorderItems";
+            Text = "Form2";
+            ((System.ComponentModel.ISupportInitialize)ReleaseItemsDVg).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-        private DataGridView dgvSupplyOrderItems;
-        private Label label10;
+
+        private DataGridView ReleaseItemsDVg;
         private Button btnSelect;
     }
 }

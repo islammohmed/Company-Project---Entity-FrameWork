@@ -19,6 +19,7 @@ namespace Company_Project.Entities
         public string Address { get; set; }
         [Required]
         public string Manager { get; set; }
+        public ICollection<Item> Items { get; set; } = new List<Item>();
         public ICollection<SupplyOrder> SupplyOrders { get; set; } = new List<SupplyOrder>();
         public ICollection<ReleaseOrder> ReleaseOrders { get; set; } = new List<ReleaseOrder>();
         public ICollection<Transfer> Transfers { get; set; }

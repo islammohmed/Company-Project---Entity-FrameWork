@@ -142,3 +142,6 @@ D:\ITI\C#\EF_Project\Company Project\Company Project\obj\Debug\net8.0-windows\Co
 D:\ITI\C#\EF_Project\Company Project\Company Project\obj\Debug\net8.0-windows\Company_Project.Properties.Resources.resources
 D:\ITI\C#\EF_Project\Company Project\Company Project\obj\Debug\net8.0-windows\Company_Project.Form1.resources
 D:\ITI\C#\EF_Project\Company Project\Company Project\obj\Debug\net8.0-windows\Company_Project.ItemSelectionForm.resources
+D:\ITI\C#\EF_Project\Company Project\Company Project\obj\Debug\net8.0-windows\Company Project.sourcelink.json
+D:\ITI\C#\EF_Project\Company Project\Company Project\obj\Debug\net8.0-windows\Company_Project.ReleaseorderItems.resources
+D:\ITI\C#\EF_Project\Company Project\Company Project\obj\Debug\net8.0-windows\Company_Project.WarehouseItemsForm.resources

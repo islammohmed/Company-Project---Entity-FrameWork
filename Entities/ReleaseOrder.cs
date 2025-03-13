@@ -24,6 +24,6 @@ namespace Company_Project.Entities
         [Required]
         public int ClientId { get; set; }
         public Client Client { get; set; }
-    
+        public virtual ICollection<ReleaseOrderItem> ReleaseOrderItems { get; set; } = new List<ReleaseOrderItem>();
     }
 }

@@ -17,30 +17,22 @@ namespace Company_Project
             LoadSupplyOrders();
             LoadSuppliersForOrder();
             LoadWarehousesForOrders();
+            LoadReleaseOrders();
         }
-
-        //warehouse
+        #region Warehouse
         private BindingSource itemBindingSource = new BindingSource();
-        private void LoadItems(int warehouseId)
-        {
-            using (var context = new AppDbContext())
-            {
-                var items = context.Items.Where(i => i.Id == warehouseId).ToList();
-                itemBindingSource.DataSource = items; // Bind data to BindingSource
-                Items.DataSource = itemBindingSource;
-            }
-        }
-        private void dataGridViewWarehouses_SelectionChanged(object sender, EventArgs e)
+        private BindingSource warehouseBindingSource = new BindingSource();
+        private void dataGridViewWarehouses_CellDoubleClick(object sender, EventArgs e)
         {
             if (dataGridViewWarehouses.SelectedRows.Count > 0)
             {
                 int warehouseId = Convert.ToInt32(dataGridViewWarehouses.SelectedRows[0].Cells["Id"].Value);
 
-                LoadItems(warehouseId);
+                // Open new form and pass the warehouse ID
+                WarehouseItemsForm itemsForm = new WarehouseItemsForm(warehouseId);
+                itemsForm.ShowDialog(); // Open as a modal window
             }
         }
-        //Crud
-        private BindingSource warehouseBindingSource = new BindingSource();
         private void LoadWarehouses()
         {
             using (var context = new AppDbContext())
@@ -51,8 +43,7 @@ namespace Company_Project
                 dataGridViewWarehouses.DataSource = warehouseBindingSource;
                 dataGridViewWarehouses.AllowUserToAddRows = true;
                 dataGridViewWarehouses.AllowUserToDeleteRows = true;
-                Items.AllowUserToAddRows = true;
-                Items.AllowUserToDeleteRows = true;
+
             }
         }
         private void Add_Click(object sender, EventArgs e)
@@ -163,8 +154,8 @@ namespace Company_Project
                 MessageBox.Show("Changes saved successfully.");
             }
         }
-
-        //customer
+        #endregion
+        #region customer
         private BindingSource customerBindingSource = new BindingSource();
         private void LoadCustomers()
         {
@@ -310,9 +301,8 @@ namespace Company_Project
         {
 
         }
-
-
-        //supplier
+        #endregion
+        #region supplier
         private BindingSource supplierBindingSource = new BindingSource();
         private void LoadSuppliers()
         {
@@ -447,7 +437,7 @@ namespace Company_Project
                 MessageBox.Show("Changes saved successfully.");
                 LoadSuppliers();
             }
-        }     
+        }
         private void btnChooseItem_Click(object sender, EventArgs e)
         {
             ItemSelectionForm itemForm = new ItemSelectionForm();
@@ -463,9 +453,7 @@ namespace Company_Project
             itemForm.Show();
         }
 
-
         private BindingSource supplyOrderBindingSource = new BindingSource();
-        private BindingSource supplyOrderItemsBindingSource = new BindingSource();
         private BindingList<SupplyOrderItem> supplyOrderItems = new BindingList<SupplyOrderItem>();
 
         private void LoadWarehousesForOrders()
@@ -617,6 +605,82 @@ namespace Company_Project
                 MessageBox.Show("Changes saved successfully.");
             }
         }
+        #endregion
+
+        #region release Order
+        private BindingSource releaseOrderBindingSource = new BindingSource();
+        public BindingList<ReleaseOrderItem> releaseOrderItems = new BindingList<ReleaseOrderItem>();
+        private void LoadReleaseOrders()
+        {
+            using (var context = new AppDbContext())
+            {
+                var releaseOrders = context.ReleaseOrders
+                    .Include(o => o.ReleaseOrderItems)
+                    .ThenInclude(i => i.Item)
+                    .AsNoTracking()
+                    .ToList();
+
+                releaseOrderBindingSource.DataSource = releaseOrders;
+                dgvReleaseOrders.DataSource = releaseOrderBindingSource;
+            }
+        }
+        private void dgvReleaseOrders_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvReleaseOrders.SelectedRows.Count > 0)
+            {
+                var selectedOrder = (ReleaseOrder)dgvReleaseOrders.SelectedRows[0].DataBoundItem;
+                LoadReleaseOrderItems(selectedOrder.Id);
+            }
+        }
+
+        private void LoadReleaseOrderItems(int releaseOrderId)
+        {
+            using (var context = new AppDbContext())
+            {
+                var items = context.ReleaseOrderItems
+                                  .Where(i => i.ReleaseOrderId == releaseOrderId)
+                                  .Include(i => i.Item)
+                                  .ToList();
+
+                releaseOrderItems = new BindingList<ReleaseOrderItem>(items);
+                dgvReleaseOrderItems.DataSource = releaseOrderItems;
+            }
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ReleaseorderItems itemForm = new ReleaseorderItems();
+            if (itemForm.ShowDialog() == DialogResult.OK)
+            {
+                var selectedItem = itemForm.SelectedItem;
+                if (selectedItem != null)
+                {
+                    var newReleaseOrderItem = new ReleaseOrderItem
+                    {
+                        ItemId = selectedItem.Id,
+                        Item = selectedItem,
+                        ProductionDate = DateTime.Now,  // Default
+                        Quantity = 1,  // Default
+                        ReleaseOrderId = ((ReleaseOrder)releaseOrderBindingSource.Current).Id
+                    };
+
+                    releaseOrderItems.Add(newReleaseOrderItem);
+                }
+            }
+        }
+        private void SaveReleaseOrder_Click(object sender, EventArgs e)
+        {
+            using (var context = new AppDbContext())
+            {
+                foreach (var order in (List<ReleaseOrder>)releaseOrderBindingSource.DataSource)
+                {
+                    context.Entry(order).State = order.Id == 0 ? EntityState.Added : EntityState.Modified;
+                }
+                context.SaveChanges();
+                MessageBox.Show("Changes saved successfully.");
+            }
+        }
+        #endregion
+
 
  
     }

@@ -42,9 +42,11 @@
             Delete = new Button();
             Update = new Button();
             Add = new Button();
-            Items = new DataGridView();
             dataGridViewWarehouses = new DataGridView();
             SupplyOrder = new TabPage();
+            label14 = new Label();
+            dvgSupplyItems = new DataGridView();
+            btnChooseItem = new Button();
             SaveSupplyOrder = new Button();
             dateTimeOrder = new DateTimePicker();
             comboBoxWarehouse = new ComboBox();
@@ -59,6 +61,9 @@
             AddSupplyOrder = new Button();
             dataGridViewSupplyItems = new DataGridView();
             ReleaseOrder = new TabPage();
+            button5 = new Button();
+            label10 = new Label();
+            dgvReleaseOrderItems = new DataGridView();
             SaveReleaseOrder = new Button();
             comboBoxWarehouseforRelase = new ComboBox();
             comboBoxCustomer = new ComboBox();
@@ -71,7 +76,7 @@
             WarehouseId = new Label();
             ClientId = new Label();
             button3 = new Button();
-            dataGridView3 = new DataGridView();
+            dgvReleaseOrders = new DataGridView();
             TransferOrder = new TabPage();
             tabPage5 = new TabPage();
             tabPage1 = new TabPage();
@@ -114,15 +119,15 @@
             textBoxSupplierName = new TextBox();
             label20 = new Label();
             dataGridViewSupplier = new DataGridView();
-            btnChooseItem = new Button();
             Customer.SuspendLayout();
             WarehouseManagement.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)Items).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewWarehouses).BeginInit();
             SupplyOrder.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dvgSupplyItems).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewSupplyItems).BeginInit();
             ReleaseOrder.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvReleaseOrderItems).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvReleaseOrders).BeginInit();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCustomers).BeginInit();
             dataGridViewSuppliers.SuspendLayout();
@@ -162,7 +167,6 @@
             WarehouseManagement.Controls.Add(Delete);
             WarehouseManagement.Controls.Add(Update);
             WarehouseManagement.Controls.Add(Add);
-            WarehouseManagement.Controls.Add(Items);
             WarehouseManagement.Controls.Add(dataGridViewWarehouses);
             WarehouseManagement.ForeColor = SystemColors.ActiveCaptionText;
             WarehouseManagement.Location = new Point(4, 29);
@@ -174,7 +178,7 @@
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(39, 253);
+            textBox4.Location = new Point(381, 523);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(125, 27);
             textBox4.TabIndex = 22;
@@ -183,7 +187,7 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.ActiveCaptionText;
-            label1.Location = new Point(39, 230);
+            label1.Location = new Point(381, 500);
             label1.Name = "label1";
             label1.Size = new Size(171, 20);
             label1.TabIndex = 21;
@@ -191,9 +195,9 @@
             // 
             // Save
             // 
-            Save.Location = new Point(34, 340);
+            Save.Location = new Point(785, 438);
             Save.Name = "Save";
-            Save.Size = new Size(335, 29);
+            Save.Size = new Size(142, 29);
             Save.TabIndex = 20;
             Save.Text = "Save";
             Save.UseVisualStyleBackColor = true;
@@ -201,21 +205,21 @@
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(108, 164);
+            textBox3.Location = new Point(17, 523);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(125, 27);
             textBox3.TabIndex = 19;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(108, 118);
+            textBox2.Location = new Point(381, 470);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(125, 27);
             textBox2.TabIndex = 18;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(94, 82);
+            textBox1.Location = new Point(17, 470);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(125, 27);
             textBox1.TabIndex = 17;
@@ -223,7 +227,7 @@
             // Address
             // 
             Address.AutoSize = true;
-            Address.Location = new Point(34, 121);
+            Address.Location = new Point(381, 447);
             Address.Name = "Address";
             Address.Size = new Size(66, 20);
             Address.TabIndex = 16;
@@ -232,7 +236,7 @@
             // Manger
             // 
             Manger.AutoSize = true;
-            Manger.Location = new Point(39, 167);
+            Manger.Location = new Point(17, 500);
             Manger.Name = "Manger";
             Manger.Size = new Size(71, 20);
             Manger.TabIndex = 15;
@@ -242,7 +246,7 @@
             // 
             Name.AutoSize = true;
             Name.ForeColor = SystemColors.ActiveCaptionText;
-            Name.Location = new Point(37, 85);
+            Name.Location = new Point(17, 447);
             Name.Name = "Name";
             Name.Size = new Size(51, 20);
             Name.TabIndex = 14;
@@ -250,7 +254,7 @@
             // 
             // Delete
             // 
-            Delete.Location = new Point(275, 294);
+            Delete.Location = new Point(763, 616);
             Delete.Name = "Delete";
             Delete.Size = new Size(94, 29);
             Delete.TabIndex = 13;
@@ -260,7 +264,7 @@
             // 
             // Update
             // 
-            Update.Location = new Point(152, 294);
+            Update.Location = new Point(381, 616);
             Update.Name = "Update";
             Update.Size = new Size(94, 29);
             Update.TabIndex = 12;
@@ -270,7 +274,7 @@
             // 
             // Add
             // 
-            Add.Location = new Point(34, 294);
+            Add.Location = new Point(39, 616);
             Add.Name = "Add";
             Add.Size = new Size(94, 29);
             Add.TabIndex = 11;
@@ -278,27 +282,21 @@
             Add.UseVisualStyleBackColor = true;
             Add.Click += Add_Click;
             // 
-            // Items
-            // 
-            Items.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            Items.Location = new Point(431, 388);
-            Items.Name = "Items";
-            Items.RowHeadersWidth = 51;
-            Items.Size = new Size(505, 247);
-            Items.TabIndex = 10;
-            // 
             // dataGridViewWarehouses
             // 
             dataGridViewWarehouses.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewWarehouses.Location = new Point(431, 6);
+            dataGridViewWarehouses.Location = new Point(17, 6);
             dataGridViewWarehouses.Name = "dataGridViewWarehouses";
             dataGridViewWarehouses.RowHeadersWidth = 51;
-            dataGridViewWarehouses.Size = new Size(505, 376);
+            dataGridViewWarehouses.Size = new Size(910, 426);
             dataGridViewWarehouses.TabIndex = 0;
+            dataGridViewWarehouses.CellDoubleClick += dataGridViewWarehouses_CellDoubleClick;
             // 
             // SupplyOrder
             // 
             SupplyOrder.BackColor = Color.Transparent;
+            SupplyOrder.Controls.Add(label14);
+            SupplyOrder.Controls.Add(dvgSupplyItems);
             SupplyOrder.Controls.Add(btnChooseItem);
             SupplyOrder.Controls.Add(SaveSupplyOrder);
             SupplyOrder.Controls.Add(dateTimeOrder);
@@ -319,6 +317,34 @@
             SupplyOrder.Size = new Size(994, 670);
             SupplyOrder.TabIndex = 1;
             SupplyOrder.Text = "Supply Order";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(394, 429);
+            label14.Name = "label14";
+            label14.Size = new Size(100, 20);
+            label14.TabIndex = 18;
+            label14.Text = "Supply Items";
+            // 
+            // dvgSupplyItems
+            // 
+            dvgSupplyItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dvgSupplyItems.Location = new Point(38, 452);
+            dvgSupplyItems.Name = "dvgSupplyItems";
+            dvgSupplyItems.RowHeadersWidth = 51;
+            dvgSupplyItems.Size = new Size(865, 158);
+            dvgSupplyItems.TabIndex = 17;
+            // 
+            // btnChooseItem
+            // 
+            btnChooseItem.Location = new Point(258, 616);
+            btnChooseItem.Name = "btnChooseItem";
+            btnChooseItem.Size = new Size(379, 29);
+            btnChooseItem.TabIndex = 16;
+            btnChooseItem.Text = "Choose Item";
+            btnChooseItem.UseVisualStyleBackColor = true;
+            btnChooseItem.Click += btnChooseItem_Click;
             // 
             // SaveSupplyOrder
             // 
@@ -425,15 +451,18 @@
             // dataGridViewSupplyItems
             // 
             dataGridViewSupplyItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewSupplyItems.Location = new Point(502, 17);
+            dataGridViewSupplyItems.Location = new Point(451, 17);
             dataGridViewSupplyItems.Name = "dataGridViewSupplyItems";
             dataGridViewSupplyItems.RowHeadersWidth = 51;
-            dataGridViewSupplyItems.Size = new Size(401, 396);
+            dataGridViewSupplyItems.Size = new Size(476, 396);
             dataGridViewSupplyItems.TabIndex = 0;
             // 
             // ReleaseOrder
             // 
             ReleaseOrder.BackColor = Color.Transparent;
+            ReleaseOrder.Controls.Add(button5);
+            ReleaseOrder.Controls.Add(label10);
+            ReleaseOrder.Controls.Add(dgvReleaseOrderItems);
             ReleaseOrder.Controls.Add(SaveReleaseOrder);
             ReleaseOrder.Controls.Add(comboBoxWarehouseforRelase);
             ReleaseOrder.Controls.Add(comboBoxCustomer);
@@ -446,7 +475,7 @@
             ReleaseOrder.Controls.Add(WarehouseId);
             ReleaseOrder.Controls.Add(ClientId);
             ReleaseOrder.Controls.Add(button3);
-            ReleaseOrder.Controls.Add(dataGridView3);
+            ReleaseOrder.Controls.Add(dgvReleaseOrders);
             ReleaseOrder.ForeColor = SystemColors.ControlText;
             ReleaseOrder.Location = new Point(4, 29);
             ReleaseOrder.Name = "ReleaseOrder";
@@ -455,14 +484,43 @@
             ReleaseOrder.TabIndex = 2;
             ReleaseOrder.Text = "ReleaseOrder";
             // 
+            // button5
+            // 
+            button5.Location = new Point(276, 628);
+            button5.Name = "button5";
+            button5.Size = new Size(379, 29);
+            button5.TabIndex = 28;
+            button5.Text = "Choose Item";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(406, 416);
+            label10.Name = "label10";
+            label10.Size = new Size(106, 20);
+            label10.TabIndex = 27;
+            label10.Text = "Release Items";
+            // 
+            // dgvReleaseOrderItems
+            // 
+            dgvReleaseOrderItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvReleaseOrderItems.Location = new Point(32, 439);
+            dgvReleaseOrderItems.Name = "dgvReleaseOrderItems";
+            dgvReleaseOrderItems.RowHeadersWidth = 51;
+            dgvReleaseOrderItems.Size = new Size(895, 183);
+            dgvReleaseOrderItems.TabIndex = 26;
+            // 
             // SaveReleaseOrder
             // 
-            SaveReleaseOrder.Location = new Point(70, 392);
+            SaveReleaseOrder.Location = new Point(70, 373);
             SaveReleaseOrder.Name = "SaveReleaseOrder";
             SaveReleaseOrder.Size = new Size(379, 29);
             SaveReleaseOrder.TabIndex = 25;
             SaveReleaseOrder.Text = "Save";
             SaveReleaseOrder.UseVisualStyleBackColor = true;
+            SaveReleaseOrder.Click += SaveReleaseOrder_Click;
             // 
             // comboBoxWarehouseforRelase
             // 
@@ -558,14 +616,14 @@
             button3.Text = "Add";
             button3.UseVisualStyleBackColor = true;
             // 
-            // dataGridView3
+            // dgvReleaseOrders
             // 
-            dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView3.Location = new Point(500, 25);
-            dataGridView3.Name = "dataGridView3";
-            dataGridView3.RowHeadersWidth = 51;
-            dataGridView3.Size = new Size(401, 396);
-            dataGridView3.TabIndex = 1;
+            dgvReleaseOrders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvReleaseOrders.Location = new Point(455, 6);
+            dgvReleaseOrders.Name = "dgvReleaseOrders";
+            dgvReleaseOrders.RowHeadersWidth = 51;
+            dgvReleaseOrders.Size = new Size(472, 396);
+            dgvReleaseOrders.TabIndex = 1;
             // 
             // TransferOrder
             // 
@@ -771,10 +829,10 @@
             // dataGridViewCustomers
             // 
             dataGridViewCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCustomers.Location = new Point(301, 21);
+            dataGridViewCustomers.Location = new Point(258, 21);
             dataGridViewCustomers.Name = "dataGridViewCustomers";
             dataGridViewCustomers.RowHeadersWidth = 51;
-            dataGridViewCustomers.Size = new Size(600, 366);
+            dataGridViewCustomers.Size = new Size(669, 366);
             dataGridViewCustomers.TabIndex = 0;
             // 
             // dataGridViewSuppliers
@@ -961,21 +1019,11 @@
             // dataGridViewSupplier
             // 
             dataGridViewSupplier.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewSupplier.Location = new Point(318, 17);
+            dataGridViewSupplier.Location = new Point(272, 17);
             dataGridViewSupplier.Name = "dataGridViewSupplier";
             dataGridViewSupplier.RowHeadersWidth = 51;
-            dataGridViewSupplier.Size = new Size(600, 366);
+            dataGridViewSupplier.Size = new Size(655, 366);
             dataGridViewSupplier.TabIndex = 19;
-            // 
-            // btnChooseItem
-            // 
-            btnChooseItem.Location = new Point(66, 442);
-            btnChooseItem.Name = "btnChooseItem";
-            btnChooseItem.Size = new Size(379, 29);
-            btnChooseItem.TabIndex = 16;
-            btnChooseItem.Text = "Choose Item";
-            btnChooseItem.UseVisualStyleBackColor = true;
-            btnChooseItem.Click += btnChooseItem_Click;
             // 
             // Form1
             // 
@@ -988,14 +1036,15 @@
             Customer.ResumeLayout(false);
             WarehouseManagement.ResumeLayout(false);
             WarehouseManagement.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)Items).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewWarehouses).EndInit();
             SupplyOrder.ResumeLayout(false);
             SupplyOrder.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dvgSupplyItems).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewSupplyItems).EndInit();
             ReleaseOrder.ResumeLayout(false);
             ReleaseOrder.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvReleaseOrderItems).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvReleaseOrders).EndInit();
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCustomers).EndInit();
@@ -1014,7 +1063,6 @@
         private TabPage TransferOrder;
         private TabPage tabPage5;
         private DataGridView dataGridViewWarehouses;
-        private DataGridView Items;
         private Button Delete;
         private Button Update;
         private Button Add;
@@ -1053,7 +1101,7 @@
         private TextBox textBoxReleaseOrderId;
         private Button DeleteSupplyOrder;
         private Button UpdateSupplyOrder;
-        private DataGridView dataGridView3;
+        private DataGridView dgvReleaseOrders;
         private Button button1;
         private Button button2;
         private Label label6;
@@ -1094,5 +1142,10 @@
         private ComboBox comboBoxCustomer;
         private Button SaveReleaseOrder;
         private Button btnChooseItem;
+        private Label label10;
+        private DataGridView dgvReleaseOrderItems;
+        private Button button5;
+        private DataGridView dvgSupplyItems;
+        private Label label14;
     }
 }
