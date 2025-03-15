@@ -20,7 +20,7 @@ namespace Company_Project
             LoadReleaseOrders();
         }
         #region Warehouse
-        private BindingSource itemBindingSource = new BindingSource();
+        private BindingList<Warehouse> warehouseList;
         private BindingSource warehouseBindingSource = new BindingSource();
         private void dataGridViewWarehouses_CellDoubleClick(object sender, EventArgs e)
         {
@@ -37,69 +37,57 @@ namespace Company_Project
         {
             using (var context = new AppDbContext())
             {
-                var warehouses = context.Warehouses.ToList();
-                dataGridViewWarehouses.DataSource = warehouses;
-                warehouseBindingSource.DataSource = warehouses;
+                warehouseList = new BindingList<Warehouse>(context.Warehouses.ToList());
+                warehouseBindingSource.DataSource = warehouseList;
                 dataGridViewWarehouses.DataSource = warehouseBindingSource;
-                dataGridViewWarehouses.AllowUserToAddRows = true;
-                dataGridViewWarehouses.AllowUserToDeleteRows = true;
-
             }
+
+            dataGridViewWarehouses.AllowUserToAddRows = true;
+            dataGridViewWarehouses.AllowUserToDeleteRows = true;
+            dataGridViewWarehouses.AutoGenerateColumns = true;
         }
         private void Add_Click(object sender, EventArgs e)
         {
+            var warehouse = new Warehouse
+            {
+                Name = textBox1.Text,
+                Address = textBox2.Text,
+                Manager = textBox3.Text
+            };
+
             using (var context = new AppDbContext())
             {
-                var warehouse = new Warehouse
-                {
-                    Name = textBox1.Text,
-                    Address = textBox2.Text,
-                    Manager = textBox3.Text
-                };
                 context.Warehouses.Add(warehouse);
                 context.SaveChanges();
             }
-            LoadWarehouses();
+
+            warehouseList.Add(warehouse);
+            LoadWarehousesForOrders();
+
+
         }
+
         private void Update_Click(object sender, EventArgs e)
         {
-            int warehouseId = -1;
-
-            if (!string.IsNullOrWhiteSpace(textBox4.Text))
+            if (dataGridViewWarehouses.SelectedRows.Count == 0)
             {
-                if (!int.TryParse(textBox4.Text, out warehouseId))
-                {
-                    MessageBox.Show("Invalid ID entered.");
-                    return;
-                }
-            }
-            else if (dataGridViewWarehouses.SelectedRows.Count > 0)
-            {
-                warehouseId = Convert.ToInt32(dataGridViewWarehouses.SelectedRows[0].Cells["Id"].Value);
-            }
-            else
-            {
-                MessageBox.Show("Please enter an ID or select a row.");
+                MessageBox.Show("Please select a warehouse to update.");
                 return;
             }
+
+            int warehouseId = Convert.ToInt32(dataGridViewWarehouses.SelectedRows[0].Cells["Id"].Value);
 
             using (var context = new AppDbContext())
             {
                 var warehouse = context.Warehouses.Find(warehouseId);
                 if (warehouse != null)
                 {
-                    // Only update fields that are NOT empty
-                    if (!string.IsNullOrWhiteSpace(textBox1.Text))
-                        warehouse.Name = textBox1.Text;
-
-                    if (!string.IsNullOrWhiteSpace(textBox2.Text))
-                        warehouse.Address = textBox2.Text;
-
-                    if (!string.IsNullOrWhiteSpace(textBox3.Text))
-                        warehouse.Manager = textBox3.Text;
+                    warehouse.Name = textBox1.Text;
+                    warehouse.Address = textBox2.Text;
+                    warehouse.Manager = textBox3.Text;
 
                     context.SaveChanges();
-                    LoadWarehouses();
+                    dataGridViewWarehouses.Refresh(); // 
                 }
                 else
                 {
@@ -107,29 +95,16 @@ namespace Company_Project
                 }
             }
         }
+
         private void Delete_Click(object sender, EventArgs e)
         {
-            int warehouseId = -1;
-
-            // Check if user provided an ID in the textbox
-            if (!string.IsNullOrWhiteSpace(textBox4.Text))
+            if (dataGridViewWarehouses.SelectedRows.Count == 0)
             {
-                if (!int.TryParse(textBox4.Text, out warehouseId))
-                {
-                    MessageBox.Show("Invalid ID entered.");
-                    return;
-                }
-            }
-            // If no ID is provided, use the selected row
-            else if (dataGridViewWarehouses.SelectedRows.Count > 0)
-            {
-                warehouseId = Convert.ToInt32(dataGridViewWarehouses.SelectedRows[0].Cells["Id"].Value);
-            }
-            else
-            {
-                MessageBox.Show("Please enter an ID or select a row.");
+                MessageBox.Show("Please select a warehouse to delete.");
                 return;
             }
+
+            int warehouseId = Convert.ToInt32(dataGridViewWarehouses.SelectedRows[0].Cells["Id"].Value);
 
             using (var context = new AppDbContext())
             {
@@ -138,22 +113,47 @@ namespace Company_Project
                 {
                     context.Warehouses.Remove(warehouse);
                     context.SaveChanges();
-                    LoadWarehouses();
                 }
                 else
                 {
                     MessageBox.Show("Warehouse not found.");
+                    return;
                 }
             }
+
+            var warehouseToRemove = warehouseList.FirstOrDefault(w => w.Id == warehouseId);
+            if (warehouseToRemove != null)
+            {
+                warehouseList.Remove(warehouseToRemove);
+            }
         }
-        private void Save_Click(object sender, EventArgs e)
+
+     
+private void Save_Click(object sender, EventArgs e)
         {
             using (var context = new AppDbContext())
             {
+                foreach (var warehouse in warehouseList)
+                {
+                    if (warehouse.Id == 0)
+                    {
+                        context.Warehouses.Add(warehouse);
+                    }
+                    else
+                    {
+                        context.Entry(warehouse).State = EntityState.Modified;
+                    }
+                }
+
                 context.SaveChanges();
-                MessageBox.Show("Changes saved successfully.");
             }
+
+            MessageBox.Show("Changes saved successfully.");
         }
+
+        
+
+
         #endregion
         #region customer
         private BindingSource customerBindingSource = new BindingSource();
@@ -335,6 +335,8 @@ namespace Company_Project
                 context.SaveChanges();
             }
             LoadSuppliers();
+            LoadSuppliersForOrder();
+
         }
         private void UpdateSupplier_Click(object sender, EventArgs e)
         {
@@ -436,6 +438,8 @@ namespace Company_Project
                 context.SaveChanges();
                 MessageBox.Show("Changes saved successfully.");
                 LoadSuppliers();
+                LoadSuppliersForOrder();
+
             }
         }
         private void btnChooseItem_Click(object sender, EventArgs e)
@@ -646,7 +650,7 @@ namespace Company_Project
                 dgvReleaseOrderItems.DataSource = releaseOrderItems;
             }
         }
-        private void button5_Click(object sender, EventArgs e)
+        private void Add_item(object sender, EventArgs e)
         {
             ReleaseorderItems itemForm = new ReleaseorderItems();
             if (itemForm.ShowDialog() == DialogResult.OK)
@@ -682,7 +686,11 @@ namespace Company_Project
         #endregion
 
 
- 
+
+
+       
+
+
     }
 }
 

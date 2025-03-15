@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Company_Project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250310052136_Initial")]
-    partial class Initial
+    [Migration("20250314235236_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,7 +54,7 @@ namespace Company_Project.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("site")
+                    b.Property<string>("Site")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -86,7 +86,12 @@ namespace Company_Project.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("WarehouseId");
 
                     b.ToTable("Items");
                 });
@@ -317,6 +322,17 @@ namespace Company_Project.Migrations
                     b.ToTable("Warehouses");
                 });
 
+            modelBuilder.Entity("Company_Project.Entities.Item", b =>
+                {
+                    b.HasOne("Company_Project.Entities.Warehouse", "Warehouse")
+                        .WithMany("Items")
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Warehouse");
+                });
+
             modelBuilder.Entity("Company_Project.Entities.ReleaseOrder", b =>
                 {
                     b.HasOne("Company_Project.Entities.Client", "Client")
@@ -345,7 +361,7 @@ namespace Company_Project.Migrations
                         .IsRequired();
 
                     b.HasOne("Company_Project.Entities.ReleaseOrder", "ReleaseOrder")
-                        .WithMany()
+                        .WithMany("ReleaseOrderItems")
                         .HasForeignKey("ReleaseOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -429,6 +445,11 @@ namespace Company_Project.Migrations
                     b.Navigation("ReleaseOrder");
                 });
 
+            modelBuilder.Entity("Company_Project.Entities.ReleaseOrder", b =>
+                {
+                    b.Navigation("ReleaseOrderItems");
+                });
+
             modelBuilder.Entity("Company_Project.Entities.Supplier", b =>
                 {
                     b.Navigation("SupplyOrders");
@@ -441,6 +462,8 @@ namespace Company_Project.Migrations
 
             modelBuilder.Entity("Company_Project.Entities.Warehouse", b =>
                 {
+                    b.Navigation("Items");
+
                     b.Navigation("ReleaseOrders");
 
                     b.Navigation("SupplyOrders");

@@ -145,10 +145,10 @@
             Customer.Controls.Add(dataGridViewSuppliers);
             Customer.Cursor = Cursors.Hand;
             Customer.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            Customer.Location = new Point(12, 7);
+            Customer.Location = new Point(12, 12);
             Customer.Name = "Customer";
             Customer.SelectedIndex = 0;
-            Customer.Size = new Size(1002, 703);
+            Customer.Size = new Size(1002, 729);
             Customer.TabIndex = 0;
             Customer.Tag = "";
             // 
@@ -175,6 +175,7 @@
             WarehouseManagement.Size = new Size(994, 670);
             WarehouseManagement.TabIndex = 0;
             WarehouseManagement.Text = "Warehouse Management";
+            WarehouseManagement.DoubleClick += dataGridViewWarehouses_CellDoubleClick;
             // 
             // textBox4
             // 
@@ -314,7 +315,7 @@
             SupplyOrder.Location = new Point(4, 29);
             SupplyOrder.Name = "SupplyOrder";
             SupplyOrder.Padding = new Padding(3);
-            SupplyOrder.Size = new Size(994, 670);
+            SupplyOrder.Size = new Size(994, 696);
             SupplyOrder.TabIndex = 1;
             SupplyOrder.Text = "Supply Order";
             // 
@@ -344,7 +345,7 @@
             btnChooseItem.TabIndex = 16;
             btnChooseItem.Text = "Choose Item";
             btnChooseItem.UseVisualStyleBackColor = true;
-            btnChooseItem.Click += btnChooseItem_Click;
+            btnChooseItem.Click += Add_item;
             // 
             // SaveSupplyOrder
             // 
@@ -354,6 +355,7 @@
             SaveSupplyOrder.TabIndex = 15;
             SaveSupplyOrder.Text = "Save";
             SaveSupplyOrder.UseVisualStyleBackColor = true;
+            SaveSupplyOrder.Click += SaveSupplyOrder_Click;
             // 
             // dateTimeOrder
             // 
@@ -386,6 +388,7 @@
             DeleteSupplyOrder.TabIndex = 11;
             DeleteSupplyOrder.Text = "Delete";
             DeleteSupplyOrder.UseVisualStyleBackColor = true;
+            DeleteSupplyOrder.Click += DeleteSupplyOrder_Click;
             // 
             // UpdateSupplyOrder
             // 
@@ -395,6 +398,7 @@
             UpdateSupplyOrder.TabIndex = 10;
             UpdateSupplyOrder.Text = "Update";
             UpdateSupplyOrder.UseVisualStyleBackColor = true;
+            UpdateSupplyOrder.Click += UpdateSupplyOrder_Click;
             // 
             // label5
             // 
@@ -447,6 +451,7 @@
             AddSupplyOrder.TabIndex = 1;
             AddSupplyOrder.Text = "Add";
             AddSupplyOrder.UseVisualStyleBackColor = true;
+            AddSupplyOrder.Click += AddSupplyOrder_Click;
             // 
             // dataGridViewSupplyItems
             // 
@@ -480,7 +485,7 @@
             ReleaseOrder.Location = new Point(4, 29);
             ReleaseOrder.Name = "ReleaseOrder";
             ReleaseOrder.Padding = new Padding(3);
-            ReleaseOrder.Size = new Size(994, 670);
+            ReleaseOrder.Size = new Size(994, 422);
             ReleaseOrder.TabIndex = 2;
             ReleaseOrder.Text = "ReleaseOrder";
             // 
@@ -492,7 +497,6 @@
             button5.TabIndex = 28;
             button5.Text = "Choose Item";
             button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click;
             // 
             // label10
             // 
@@ -520,7 +524,6 @@
             SaveReleaseOrder.TabIndex = 25;
             SaveReleaseOrder.Text = "Save";
             SaveReleaseOrder.UseVisualStyleBackColor = true;
-            SaveReleaseOrder.Click += SaveReleaseOrder_Click;
             // 
             // comboBoxWarehouseforRelase
             // 
@@ -863,7 +866,6 @@
             dataGridViewSuppliers.TabIndex = 6;
             dataGridViewSuppliers.Text = "Supplier";
             dataGridViewSuppliers.UseVisualStyleBackColor = true;
-            dataGridViewSuppliers.Click += dataGridViewSuppliers_Click;
             // 
             // SaveSupplierChanges
             // 
@@ -915,6 +917,7 @@
             DeleteSupplier.TabIndex = 32;
             DeleteSupplier.Text = "Delete";
             DeleteSupplier.UseVisualStyleBackColor = true;
+            DeleteSupplier.Click += DeleteSupplier_Click;
             // 
             // UpdateSupplier
             // 
